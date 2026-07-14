@@ -7,9 +7,15 @@ import {
 } from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
 import {
-  getActivePlan, requestUpgrade, cancelSubscription, PLANS, type PlanId,
+  getActivePlan,
+  requestUpgrade,
+  cancelSubscription,
 } from "../lib/billing.server";
 
+import {
+  PLANS,
+  type PlanId,
+} from "../lib/billing";
 export async function loader({ request }: LoaderFunctionArgs) {
   await authenticate.admin(request);
   const url = new URL(request.url);

@@ -1,6 +1,6 @@
 // app/lib/billing.server.ts
 import { authenticate, BASIC_PLAN, PRO_PLAN } from "../shopify.server";
-
+import { PLANS, type PlanId } from "./billing";
 export const PLANS = {
   FREE: {
     id:              "FREE",
