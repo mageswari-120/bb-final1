@@ -1,6 +1,6 @@
 name = "bundle-builder"
-client_id = "YOUR_CLIENT_ID_HERE"
-application_url = "https://YOUR_APP_URL_HERE"
+client_id = "30d18de2120b2219f486cdac3972365d"
+application_url = "https://bb-final1.onrender.com"
 embedded = true
 
 [build]
@@ -11,9 +11,8 @@ scopes = "read_products,write_products,read_product_listings,read_collections,wr
 
 [auth]
 redirect_urls = [
-  "https://YOUR_APP_URL_HERE/auth/callback",
-  "https://YOUR_APP_URL_HERE/auth/shopify/callback",
-  "https://YOUR_APP_URL_HERE/api/auth/callback"
+  "https://bb-final1.onrender.com/auth/callback",
+  "https://bb-final1.onrender.com/auth/shopify/callback"
 ]
 
 [webhooks]
@@ -36,7 +35,7 @@ api_version = "2024-01"
   uri = "/webhooks"
 
 [app_proxy]
-url = "https://YOUR_APP_URL_HERE/apps/bundle-builder"
+url = "https://bb-final1.onrender.com/apps/bundle-builder"
 subpath = "bundle-builder"
 prefix = "apps"
 
