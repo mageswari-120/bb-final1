@@ -1,8 +1,6 @@
-// app/routes/auth.$.tsx
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { authenticate } from "../shopify.server";
+import { login } from "../shopify.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  await authenticate.admin(request);
-  return null;
+  return login(request);
 }
