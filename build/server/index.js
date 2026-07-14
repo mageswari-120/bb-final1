@@ -136,7 +136,7 @@ const shopify = shopifyApp({
   apiSecretKey: process.env.SHOPIFY_API_SECRET,
   apiVersion: ApiVersion.January24,
   scopes: (_a = process.env.SCOPES) == null ? void 0 : _a.split(","),
-  appUrl: process.env.HOST,
+  appUrl: process.env.SHOPIFY_APP_URL,
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
