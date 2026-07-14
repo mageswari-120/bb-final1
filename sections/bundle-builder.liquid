@@ -1,0 +1,77 @@
+{% comment %}
+  Bundle Builder Section — reads bundle data from app proxy
+  Proxy endpoint: /apps/bundle-builder/api/bundle-products?bundle_id=<id>
+{% endcomment %}
+
+<div
+  class="bb-root"
+  data-bundle-id="{{ section.settings.bundle_id | escape }}"
+  data-proxy-url="/apps/bundle-builder/api/bundle-products"
+  data-currency="{{ cart.currency.iso_code }}"
+>
+  <div class="bb-loading" aria-live="polite">
+    <span class="bb-spinner"></span>
+    <p>{{ 'bundle.loading' | t | default: 'Loading bundle…' }}</p>
+  </div>
+  <div class="bb-error" hidden><p class="bb-error__msg"></p></div>
+  <div class="bb-wrap" hidden>
+    <header class="bb-header">
+      <h2 class="bb-header__title"></h2>
+      <p class="bb-header__subtitle"></p>
+    </header>
+    <div class="bb-layout">
+      <div class="bb-main">
+        <div class="bb-tabs" role="tablist"></div>
+        <div class="bb-panes"></div>
+      </div>
+      <aside class="bb-panel">
+        <div class="bb-panel__header">
+          <h3 class="bb-panel__title">{{ 'bundle.your_bundle' | t | default: 'Your Bundle' }}</h3>
+          <span class="bb-panel__count"><span class="bb-panel__count-num">0</span> {{ 'bundle.items' | t | default: 'items' }}</span>
+        </div>
+        <div class="bb-panel__items">
+          <p class="bb-panel__empty">{{ 'bundle.empty' | t | default: 'Start adding products to your bundle.' }}</p>
+        </div>
+        <div class="bb-panel__pricing">
+          <div class="bb-panel__tier-label"></div>
+          <div class="bb-panel__price-row">
+            <span class="bb-panel__compare-price"></span>
+            <span class="bb-panel__final-price"></span>
+          </div>
+        </div>
+        <button class="bb-panel__cta button button--full-width" type="button" disabled aria-disabled="true">
+          <span class="bb-panel__cta-label">{{ 'bundle.add_to_cart' | t | default: 'Add bundle to cart' }}</span>
+          <span class="bb-panel__cta-spinner" hidden aria-hidden="true"></span>
+        </button>
+        <p class="bb-panel__progress-hint"></p>
+      </aside>
+    </div>
+  </div>
+</div>
+
+{{ 'bundle-builder.css' | asset_url | stylesheet_tag }}
+{{ 'bundle-builder.js'  | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Bundle Builder",
+  "tag": "section",
+  "class": "section-bundle-builder",
+  "limit": 1,
+  "settings": [
+    { "type": "header", "content": "App connection" },
+    { "type": "text", "id": "bundle_id", "label": "Bundle ID", "info": "Copy from the Bundle Builder app dashboard." },
+    { "type": "header", "content": "Section padding" },
+    { "type": "range", "id": "padding_top",    "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Top padding",    "default": 36 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Bottom padding", "default": 36 }
+  ],
+  "presets": [{ "name": "Bundle Builder" }]
+}
+{% endschema %}
+
+{% style %}
+  .section-bundle-builder {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}

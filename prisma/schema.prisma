@@ -1,0 +1,60 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Shopify session storage (required by @shopify/shopify-app-session-storage-prisma)
+model Session {
+  id          String    @id
+  shop        String
+  state       String
+  isOnline    Boolean   @default(false)
+  scope       String?
+  expires     DateTime?
+  accessToken String
+  userId      BigInt?
+  firstName   String?
+  lastName    String?
+  email       String?
+  accountOwner Boolean  @default(false)
+  locale      String?
+  collaborator Boolean? @default(false)
+  emailVerified Boolean? @default(false)
+}
+
+// Bundle configuration
+model Bundle {
+  id           String   @id @default(cuid())
+  shop         String
+  title        String
+  status       String   @default("draft")   // "active" | "draft"
+  mode         String   @default("fixed")   // "fixed" | "mix_match"
+  sourceType   String   @default("collection")
+  collectionId String
+  minItems     Int      @default(1)
+  maxItems     Int?
+  allowRepeat  Boolean  @default(false)
+  displayJson  String   @default("{}")      // JSON: {heading, subtitle, ctaLabel}
+  tiersJson    String   @default("[]")      // JSON: [{minItems, discount, label}]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([shop])
+}
+
+// Shop plan cache
+model ShopPlan {
+  id          String   @id @default(cuid())
+  shop        String   @unique
+  planId      String   @default("FREE")    // "FREE" | "BASIC" | "PRO"
+  chargeId    String?
+  trialEndsAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

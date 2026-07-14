@@ -1,0 +1,9 @@
+{
+  "bundle": {
+    "loading": "Loading bundle\u2026",
+    "your_bundle": "Your Bundle",
+    "items": "items",
+    "empty": "Start adding products to your bundle.",
+    "add_to_cart": "Add bundle to cart"
+  }
+}
